@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.smarthomeapp.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_doorsFragment"
+            app:destination="@id/doorsFragment"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mediaFragment"
+            app:destination="@id/mediaFragment"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_lightsFragment"
+            app:destination="@id/lightsFragment"
+            app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lightsFragment"
+        android:name="com.example.smarthomeapp.LightsFragment"
+        android:label="fragment_lights"
+        tools:layout="@layout/fragment_lights" />
+    <fragment
+        android:id="@+id/mediaFragment"
+        android:name="com.example.smarthomeapp.MediaFragment"
+        android:label="fragment_media"
+        tools:layout="@layout/fragment_media" >
+        <action
+            android:id="@+id/action_mediaFragment_to_mediaDetailsFragment"
+            app:destination="@id/mediaDetailsFragment"
+            app:popUpTo="@id/mediaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediaDetailsFragment"
+        android:name="com.example.smarthomeapp.MediaDetailsFragment"
+        android:label="fragment_media_details"
+        tools:layout="@layout/fragment_media_details" />
+    <fragment
+        android:id="@+id/doorsFragment"
+        android:name="com.example.smarthomeapp.DoorsFragment"
+        android:label="fragment_doors"
+        tools:layout="@layout/fragment_doors" >
+        <action
+            android:id="@+id/action_doorsFragment_to_doorsDetailsFragment"
+            app:destination="@id/doorsDetailsFragment"
+            app:popUpTo="@id/doorsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/doorsDetailsFragment"
+        android:name="com.example.smarthomeapp.DoorsDetailsFragment"
+        android:label="fragment_doors_details"
+        tools:layout="@layout/fragment_doors_details" />
 </navigation>
