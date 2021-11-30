@@ -15,7 +15,6 @@ class MediaDetailsFragment : Fragment() {
     val args: MediaDetailsFragmentArgs by navArgs<MediaDetailsFragmentArgs>()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
