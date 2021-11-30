@@ -6,7 +6,7 @@
     android:layout_height="60dp">
 
     <TextView
-        android:id="@+id/doorName"
+        android:id="@+id/garageDoorName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -14,17 +14,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Name" />
+        tools:text="Garage Right Bay" />
 
     <Switch
-        android:id="@+id/doorLockSwitch"
+        android:id="@+id/garageDoorLockSwitch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:minHeight="48dp"
-        android:switchTextAppearance="@style/TextAppearance.AppCompat.Display1"
         android:text="@string/lock"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/garageDoorOpenSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:minHeight="48dp"
+        android:text="@string/open_close"
+        app:layout_constraintEnd_toStartOf="@+id/garageDoorLockSwitch"
+        app:layout_constraintTop_toTopOf="@+id/garageDoorLockSwitch" />
 </androidx.constraintlayout.widget.ConstraintLayout>

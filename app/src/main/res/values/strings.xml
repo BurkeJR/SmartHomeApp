@@ -2,5 +2,6 @@
     <string name="app_name">SmartHomeApp</string>
     <string name="doors_windows"><![CDATA[Doors & Windows]]></string>
     <string name="lock">Lock</string>
+    <string name="open_close">Open/Close</string>
 
 </resources>
