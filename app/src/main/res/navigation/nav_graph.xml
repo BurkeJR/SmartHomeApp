@@ -32,7 +32,7 @@
         android:id="@+id/mediaFragment"
         android:name="com.example.smarthomeapp.MediaFragment"
         android:label="fragment_media"
-        tools:layout="@layout/fragment_media" >
+        tools:layout="@layout/fragment_media_list" >
         <action
             android:id="@+id/action_mediaFragment_to_mediaDetailsFragment"
             app:destination="@id/mediaDetailsFragment"
@@ -42,7 +42,18 @@
         android:id="@+id/mediaDetailsFragment"
         android:name="com.example.smarthomeapp.MediaDetailsFragment"
         android:label="fragment_media_details"
-        tools:layout="@layout/fragment_media_details" />
+        tools:layout="@layout/fragment_media_details" >
+        <argument
+            android:name="mediaName"
+            app:argType="string"
+            android:defaultValue="null"
+            />
+        <argument
+            android:name="mediaID"
+            app:argType="integer"
+            android:defaultValue="-1"
+            />
+    </fragment>
     <fragment
         android:id="@+id/doorsFragment"
         android:name="com.example.smarthomeapp.DoorsFragment"
