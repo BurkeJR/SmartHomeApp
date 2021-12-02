@@ -5,14 +5,13 @@
       <map>
         <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/door_item.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/fragment_doors.xml" value="0.15307971014492755" />
+        <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/fragment_doors.xml" value="0.1" />
         <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/fragment_doors_details.xml" value="0.15307971014492755" />
         <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/fragment_home.xml" value="0.15307971014492755" />
         <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/fragment_lights.xml" value="0.15307971014492755" />
         <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/fragment_media.xml" value="0.15307971014492755" />
         <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/fragment_media_details.xml" value="0.15307971014492755" />
-        <entry key="..\:/Users/TroyerCP19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/activity_main.xml" value="0.14666666666666667" />
-        <entry key="..\:/Users/TroyerCP19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/fragment_home.xml" value="0.12" />
+        <entry key="..\:/Users/BurkeJR19/AndroidStudioProjects/SmartHomeApp/app/src/main/res/layout/garage_door_item.xml" value="0.3333333333333333" />
       </map>
     </option>
   </component>
