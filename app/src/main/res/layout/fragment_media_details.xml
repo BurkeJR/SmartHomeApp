@@ -14,7 +14,7 @@
         android:layout_marginTop="32dp"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="#000000"
+        android:textColor="#5C5C5C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
