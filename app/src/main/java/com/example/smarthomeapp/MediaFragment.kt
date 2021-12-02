@@ -23,8 +23,8 @@ class MediaFragment : Fragment() {
         binding = FragmentMediaListBinding.inflate(inflater)
 
         var mediaList = mutableListOf(
-            Media(0, "TV"),
-            Media(1, "Google Home")
+            Media(0, "TV", false, 0,0),
+            Media(1, "Google Home", false, 0,0)
         )
 
 
