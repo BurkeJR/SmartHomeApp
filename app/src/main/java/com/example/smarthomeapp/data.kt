@@ -1,29 +1,29 @@
 package com.example.smarthomeapp
 
 data class door(
-    val id: Integer,
+    val id: Int,
     val name: String,
     val isOpen: Boolean,
     val motorized: Boolean
 )
 
 data class light(
-    val id: Integer,
+    val id: Int,
     val name: String,
     val isOn: Boolean
 )
 
 data class mediaPlayer(
-    val id: Integer,
+    val id: Int,
     val name: String,
     val isPlaying: Boolean,
-    val nowPlayingSongId: Integer,
-    val currentTimeSeconds: Float
+    val nowPlayingSongId: Int = 0,
+    val currentTimeSeconds: Double = 0.0
 )
 
 data class song(
-    val id: Integer,
+    val id: Int,
     val name: String,
     val coverUrl: String,
-    val durationSeconds: Float
+    val durationSeconds: Double
 )
