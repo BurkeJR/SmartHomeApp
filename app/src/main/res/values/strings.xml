@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">SmartHomeApp</string>
-    <string name="doors_windows"><![CDATA[Doors & Windows]]></string>
+    <string name="doors">Doors</string>
     <string name="lock">Lock</string>
+    <string name="door_button_label">Doors</string>
+    <string name="media_button_label">Media</string>
+    <string name="light_button_label">Lights</string>
+    <string name="open">Open</string>
 
 </resources>
