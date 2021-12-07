@@ -13,7 +13,7 @@ import androidx.navigation.Navigation
 import com.example.smarthomeapp.databinding.MediaListItemBinding
 
 
-class DiffCallback : DiffUtil.ItemCallback<mediaPlayer>() {
+class DiffCallbackMedia : DiffUtil.ItemCallback<mediaPlayer>() {
     override fun areItemsTheSame(oldItem: mediaPlayer, newItem: mediaPlayer): Boolean = oldItem == newItem
 
 
@@ -25,7 +25,7 @@ class DiffCallback : DiffUtil.ItemCallback<mediaPlayer>() {
 class MediaAdapter(
     var mediaList: List<mediaPlayer>,
     var onItemClick: ((mediaPlayer) -> Unit)? = null
-): ListAdapter<mediaPlayer, MediaAdapter.ViewHolder>(DiffCallback()){
+): ListAdapter<mediaPlayer, MediaAdapter.ViewHolder>(DiffCallbackMedia()){
 
 
     inner class ViewHolder(private val item: MediaListItemBinding) : RecyclerView.ViewHolder(item.root){
