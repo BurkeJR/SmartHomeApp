@@ -13,24 +13,24 @@ import androidx.navigation.Navigation
 import com.example.smarthomeapp.databinding.MediaListItemBinding
 
 
-class DiffCallback : DiffUtil.ItemCallback<Media>() {
-    override fun areItemsTheSame(oldItem: Media, newItem: Media): Boolean = oldItem == newItem
+class DiffCallback : DiffUtil.ItemCallback<mediaPlayer>() {
+    override fun areItemsTheSame(oldItem: mediaPlayer, newItem: mediaPlayer): Boolean = oldItem == newItem
 
 
-    override fun areContentsTheSame(oldItem: Media, newItem: Media): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: mediaPlayer, newItem: mediaPlayer): Boolean = oldItem == newItem
 }
 
 
 
 class MediaAdapter(
-    var mediaList: List<Media>,
-    var onItemClick: ((Media) -> Unit)? = null
-): ListAdapter<Media, MediaAdapter.ViewHolder>(DiffCallback()){
+    var mediaList: List<mediaPlayer>,
+    var onItemClick: ((mediaPlayer) -> Unit)? = null
+): ListAdapter<mediaPlayer, MediaAdapter.ViewHolder>(DiffCallback()){
 
 
     inner class ViewHolder(private val item: MediaListItemBinding) : RecyclerView.ViewHolder(item.root){
 
-        fun bind(index: Int, data: Media){
+        fun bind(index: Int, data: mediaPlayer){
             item.mediaNameText.text = data.name
         }
         init {
