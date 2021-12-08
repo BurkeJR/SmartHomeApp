@@ -18,11 +18,7 @@ class HomeFragment : Fragment() {
 
     var netCon = false
 
-    init {
-        if (checkConnection(this)) {
-            netCon = true
-        }
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,22 +26,25 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater)
 
+        netCon = checkConnection(requireContext())
+
         if (netCon){
             binding.ConnectStatus.text = "Connected!"
+            binding.DoorButton.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_doorsFragment)
+            }
+            binding.LightButton.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_lightsFragment)
+            }
+            binding.MediaButton.setOnClickListener {
+                findNavController().navigate(R.id.action_homeFragment_to_mediaFragment)
+            }
         }
         else{
             binding.ConnectStatus.text = "Not connected, check internet access to continue"
         }
 
-        binding.DoorButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_doorsFragment)
-        }
-        binding.LightButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_lightsFragment)
-        }
-        binding.MediaButton.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_mediaFragment)
-        }
+
 
         // Inflate the layout for this fragment
         return binding.root
