@@ -16,6 +16,7 @@ data class light(
 data class mediaPlayer(
     val id: Int,
     val name: String,
+    val type: String = "media-player",
     var isPlaying: Boolean,
     var nowPlayingSongId: Int = 0,
     val currentTimeSeconds: Double = 0.0
