@@ -23,7 +23,6 @@ class MediaDetailsFragment : Fragment() {
     val args: MediaDetailsFragmentArgs by navArgs<MediaDetailsFragmentArgs>()
     var songID = -1
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
