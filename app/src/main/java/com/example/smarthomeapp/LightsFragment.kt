@@ -28,7 +28,9 @@ class LightsFragment : Fragment() {
         binding = FragmentLightsBinding.inflate(layoutInflater)
 
         requestQueue = Volley.newRequestQueue(this.context)
-        val url = "http://10.37.112.247/lights"
+
+        val ipAddress = getString(R.string.myIPAddress)
+        val url = "http://$ipAddress/lights"
         lateinit var lightList: List<light>
         val stringRequest = StringRequest(
             Request.Method.GET,
