@@ -1,6 +1,7 @@
 package com.example.smarthomeapp
 
 
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.smarthomeapp.databinding.FragmentMediaListBinding
 import com.google.gson.Gson
+import java.net.*
 
 class MediaFragment : Fragment() {
     private lateinit var binding: FragmentMediaListBinding
@@ -31,7 +33,9 @@ class MediaFragment : Fragment() {
 
 
         requestQueue = Volley.newRequestQueue(this.context)
-        val url = "http://10.37.113.241/media-players"
+
+        val ipAddress = getString(R.string.myIPAddress)
+        val url = "http://$ipAddress/media-players"
         lateinit var mediaList: List<mediaPlayer>
         val stringRequest = StringRequest(
             Request.Method.GET,
