@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dp">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/doorItemName"
@@ -11,20 +11,38 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Name" />
+        tools:text="Garage Right Bay"
+        tools:visibility="gone" />
+
+    <Switch
+        android:id="@+id/doorSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Door Name"
+        tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/doorStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/doorItemName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Status" />
+        app:layout_constraintTop_toTopOf="@+id/doorItemName"
+        tools:text="Open/Closed"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

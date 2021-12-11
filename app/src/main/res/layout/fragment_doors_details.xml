@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DoorsDetailsFragment">
 
+    <TextView
+        android:id="@+id/doorDetailTitleText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="#5C5C5C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Door Name" />
+
+    <Switch
+        android:id="@+id/doorDetailsDoorSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:checked="false"
+        android:minHeight="48dp"
+        android:text="Open/Close"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/doorDetailsOpenStatusText"
+        app:layout_constraintStart_toStartOf="@+id/doorDetailsOpenStatusText"
+        app:layout_constraintTop_toBottomOf="@+id/doorDetailsOpenStatusText" />
+
+    <TextView
+        android:id="@+id/doorDetailsOpenStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="@+id/doorDetailTitleText"
+        app:layout_constraintStart_toStartOf="@+id/doorDetailTitleText"
+        app:layout_constraintTop_toBottomOf="@+id/doorDetailTitleText"
+        tools:text="Door is Open/Closed" />
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,8 @@ class DoorsFragment : Fragment() {
 
         requestQueue = Volley.newRequestQueue(this.context)
         //val url = "http://10.37.113.241/media-players" //Luke
-        val url = "http://10.37.103.116/doors"  //Aaron
+//        val url = "http://10.37.103.116/doors"  //Aaron
+        val url = "http://${getString(R.string.myIPAddress)}/doors"
         lateinit var doorList: List<door>
         val stringRequest = StringRequest(
             Request.Method.GET,
@@ -46,10 +47,19 @@ class DoorsFragment : Fragment() {
                 binding.doorsListRecyclerView.adapter = adapter
                 binding.doorsListRecyclerView.layoutManager = LinearLayoutManager(context)
                 adapter.submitList(doorList)
-                adapter.onItemClick = {
-                    val action = DoorsFragmentDirections.actionDoorsFragmentToDoorsDetailsFragment()
-                    findNavController().navigate(action)
+
+                adapter.onToggleDoor = {
+                    it.isOpen = !it.isOpen
+
+                    val turnOnRequest = StringRequestWithBody(url + "?id=${it.id}", it, {}, {})
+                    turnOnRequest.tag = this
+                    requestQueue.add(turnOnRequest)
                 }
+
+//                adapter.onItemClick = {
+//                    val action = DoorsFragmentDirections.actionDoorsFragmentToDoorsDetailsFragment()
+//                    findNavController().navigate(action)
+//                }
             },{
                 Log.e("Error", "Request failed")
             }

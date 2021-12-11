@@ -3,7 +3,7 @@ package com.example.smarthomeapp
 data class door(
     val id: Int,
     val name: String,
-    val isOpen: Boolean,
+    var isOpen: Boolean,
     val motorized: Boolean
 )
 
