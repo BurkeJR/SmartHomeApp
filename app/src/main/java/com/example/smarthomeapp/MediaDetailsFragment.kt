@@ -1,5 +1,6 @@
 package com.example.smarthomeapp
 
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.learnsmarthome.StringRequestWithBody
 import com.example.smarthomeapp.databinding.FragmentMediaDetailsBinding
 import com.example.smarthomeapp.databinding.FragmentMediaListBinding
 import com.google.gson.Gson
@@ -74,8 +76,11 @@ class MediaDetailsFragment : Fragment() {
     }
 
     fun playMusic() {
-
-
+        data class MediaState(val isPlaying: Boolean)
+        data class LightState(val isOn: Boolean)
+        val turnOnMediaRequest = StringRequestWithBody("http://${getString(R.string.myIPAddress)}/media-players?id=${args.mediaID}", MediaState(true), {},{})
+        turnOnMediaRequest.tag = this
+        requestQueue.add(turnOnMediaRequest)
 
 
     }
