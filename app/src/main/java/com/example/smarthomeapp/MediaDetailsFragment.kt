@@ -1,6 +1,7 @@
 package com.example.smarthomeapp
 
 import android.media.MediaPlayer
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -27,8 +28,9 @@ class MediaDetailsFragment : Fragment() {
 
     private lateinit var requestQueue: RequestQueue
     val args: MediaDetailsFragmentArgs by navArgs<MediaDetailsFragmentArgs>()
-    var songID = -1
-
+    var songID = 0
+    var playing = false
+    lateinit var songList: List<song>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +38,7 @@ class MediaDetailsFragment : Fragment() {
         binding = FragmentMediaDetailsBinding.inflate(inflater)
         //Set binding
         binding.mediaDetailTitleText.text = args.mediaName
+        playing = args.isPlaying
 
 
 
@@ -44,7 +47,6 @@ class MediaDetailsFragment : Fragment() {
         val ipAddress = getString(R.string.myIPAddress)
         val url = "http://$ipAddress/media-players/songs"
 
-        var songList : List<song>
 
         val stringRequest = StringRequest(
             Request.Method.GET,
@@ -55,6 +57,7 @@ class MediaDetailsFragment : Fragment() {
                 songList = gson.fromJson<ArrayResult<song>>(it).result
 
                 val coverUrl = songList[5].coverUrl
+                binding.songNameTextView.text = songList[songID].name
 
                 Log.i("VOLLEY", "Songs loaded $coverUrl")
             },
@@ -68,7 +71,15 @@ class MediaDetailsFragment : Fragment() {
         requestQueue.add(stringRequest)
 
         binding.playMediaMusicButton.setOnClickListener {
-            playMusic()
+            if(playing){
+                pauseMusic()
+            }
+            else {
+                playMusic()
+            }
+        }
+        binding.nextSongButton.setOnClickListener {
+            nextSong()
         }
 
 
@@ -77,12 +88,32 @@ class MediaDetailsFragment : Fragment() {
 
     fun playMusic() {
         data class MediaState(val isPlaying: Boolean)
-        data class LightState(val isOn: Boolean)
         val turnOnMediaRequest = StringRequestWithBody("http://${getString(R.string.myIPAddress)}/media-players?id=${args.mediaID}", MediaState(true), {},{})
+
         turnOnMediaRequest.tag = this
         requestQueue.add(turnOnMediaRequest)
+        binding.playMediaMusicButton.setImageResource(R.drawable.ic_baseline_pause_24)
+        playing = true
 
+    }
 
+    fun pauseMusic(){
+        data class MediaState(val isPlaying: Boolean)
+        val turnOnMediaRequest = StringRequestWithBody("http://${getString(R.string.myIPAddress)}/media-players?id=${args.mediaID}", MediaState(false), {},{})
+
+        turnOnMediaRequest.tag = this
+        requestQueue.add(turnOnMediaRequest)
+        binding.playMediaMusicButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+        playing = false
+    }
+    fun nextSong(){
+        songID = (songID + 1) % 5
+        Log.i("MEDIA", "Song: $songID")
+        data class MediaState(val nowPlayingSongId: Int, val currentTimeSeconds: Double)
+        val changeSongRequest = StringRequestWithBody("http://${getString(R.string.myIPAddress)}/media-players?id=${args.mediaID}", MediaState(songID, 0.0), {}, {})
+        changeSongRequest.tag = this
+        requestQueue.add(changeSongRequest)
+        binding.songNameTextView.text = songList[songID].name
     }
 
 }

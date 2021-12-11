@@ -13,19 +13,56 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        android:textColor="#5C5C5C"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
+        android:textColor="#292929"
+        android:textSize="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="media Title" />
 
-    <Button
+    <ImageButton
         android:id="@+id/playMediaMusicButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="Button"
+        android:layout_marginTop="32dp"
+        android:background="#FFFFFF"
+        android:minWidth="84dp"
+        android:minHeight="84dp"
+        android:src="@drawable/ic_baseline_play_arrow_24"
+        app:layout_constraintEnd_toStartOf="@+id/nextSongButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/songNameTextView" />
+
+    <ImageButton
+        android:id="@+id/nextSongButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:background="#FFFFFF"
+        android:minWidth="84dp"
+        android:minHeight="84dp"
+        android:src="@drawable/ic_baseline_skip_next_24"
+        app:icon="@drawable/ic_baseline_play_arrow_24"
+        app:layout_constraintBottom_toBottomOf="@+id/playMediaMusicButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/playMediaMusicButton"
+        app:layout_constraintTop_toTopOf="@+id/playMediaMusicButton" />
+
+    <TextView
+        android:id="@+id/songNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="song Name"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mediaDetailTitleText" />

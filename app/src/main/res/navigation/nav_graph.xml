@@ -49,6 +49,11 @@
             android:defaultValue="null"
             />
         <argument
+            android:name="isPlaying"
+            app:argType="boolean"
+            android:defaultValue="false"
+            />
+        <argument
             android:name="mediaID"
             app:argType="integer"
             android:defaultValue="-1"
