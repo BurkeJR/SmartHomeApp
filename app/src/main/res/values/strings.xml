@@ -6,5 +6,6 @@
     <string name="media_button_label">Media</string>
     <string name="light_button_label">Lights</string>
     <string name="open">Open</string>
+    <string name="connection_status_label">connection_status_label</string>
 
 </resources>

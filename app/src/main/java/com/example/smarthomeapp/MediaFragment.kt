@@ -2,17 +2,25 @@ package com.example.smarthomeapp
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.smarthomeapp.databinding.FragmentMediaListBinding
+import com.google.gson.Gson
 
 class MediaFragment : Fragment() {
     private lateinit var binding: FragmentMediaListBinding
     private lateinit var adapter: MediaAdapter
+    private lateinit var requestQueue: RequestQueue
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,20 +29,35 @@ class MediaFragment : Fragment() {
     ): View? {
         binding = FragmentMediaListBinding.inflate(inflater)
 
-        var mediaList = mutableListOf(
-            mediaPlayer(0,"Google Home", false, 0, 0.0),
-            mediaPlayer(1, "Smart TV", false, 0, 0.0)
+
+        requestQueue = Volley.newRequestQueue(this.context)
+        val url = "http://10.37.113.241/media-players"
+        lateinit var mediaList: List<mediaPlayer>
+        val stringRequest = StringRequest(
+            Request.Method.GET,
+            url,
+            {
+                val gson = Gson()
+
+                mediaList = gson.fromJson<ArrayResult<mediaPlayer>>(it).result
+
+                adapter = MediaAdapter(mediaList)
+                binding.recyclerView.adapter = adapter
+                binding.recyclerView.layoutManager = LinearLayoutManager(context)
+                adapter.submitList(mediaList)
+                adapter.onItemClick = {
+                    val action = MediaFragmentDirections.actionMediaFragmentToMediaDetailsFragment(it.name, it.id)
+                    findNavController().navigate(action)
+                }
+            },{
+                Log.e("Error", "Request failed")
+            }
+
         )
+        stringRequest.tag = this
 
+        requestQueue.add(stringRequest)
 
-        adapter = MediaAdapter(mediaList)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter.submitList(mediaList)
-        adapter.onItemClick = {
-            val action = MediaFragmentDirections.actionMediaFragmentToMediaDetailsFragment(it.name, it.id)
-            findNavController().navigate(action)
-        }
 
 
 
