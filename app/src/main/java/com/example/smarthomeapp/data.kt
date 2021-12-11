@@ -10,7 +10,7 @@ data class door(
 data class light(
     val id: Int,
     val name: String,
-    val isOn: Boolean
+    var isOn: Boolean
 )
 
 data class mediaPlayer(

@@ -12,29 +12,27 @@ import android.widget.AdapterView.OnItemClickListener
 import androidx.navigation.Navigation
 import com.example.smarthomeapp.databinding.LightItemBinding
 
-class DiffCallback : DiffUtil.ItemCallback<lights>() {
-    override fun areItemsTheSame(oldItem: lights, newItem: lights): Boolean = oldItem == newItem
+class DiffCallback : DiffUtil.ItemCallback<light>() {
+    override fun areItemsTheSame(oldItem: light, newItem: light): Boolean = oldItem == newItem
 
 
-    override fun areContentsTheSame(oldItem: lights, newItem: lights): Boolean = oldItem == newItem
+    override fun areContentsTheSame(oldItem: light, newItem: light): Boolean = oldItem == newItem
 }
 
 
 
-class LightsAdapter(
-    var lightsList: List<lights>,
-    var onItemClick: ((lights) -> Unit)? = null):
-        ListAdapter<lights, LightsAdapter.ViewHolder>(DiffCallback()){
+class LightsAdapter: ListAdapter<light, LightsAdapter.ViewHolder>(DiffCallback()){
 
+    var onToggleLight: ((light) -> Unit)? = null
 
     inner class ViewHolder(private val item: LightItemBinding) : RecyclerView.ViewHolder(item.root){
 
-        fun bind(index: Int, data: lights){
+        fun bind(index: Int, data: light){
             item.lightSwitch.text = data.name
-        }
-        init {
-            itemView.setOnClickListener{
-                onItemClick?.invoke(lightsList[adapterPosition])
+            item.lightSwitch.isChecked = data.isOn
+
+            item.lightSwitch.setOnClickListener {
+                onToggleLight?.invoke(data)
             }
         }
     }
@@ -48,9 +46,5 @@ class LightsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(position, getItem(position))
 
-    }
-
-    override fun getItemCount(): Int {
-        return lightsList.size
     }
 }
