@@ -1,6 +1,7 @@
 package com.example.smarthomeapp
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -19,15 +20,29 @@ class DiffCallbackDoors : DiffUtil.ItemCallback<door>() {
 
 class DoorsAdapter (
     var doorList: List<door>,
-    var onItemClick: ((door) -> Unit)? = null
+    var onToggleDoor: ((door) -> Unit)? = null
 ): ListAdapter<door, DoorsAdapter.ViewHolder>(DiffCallbackDoors()) {
     inner class ViewHolder(private val item: DoorItemBinding) :RecyclerView.ViewHolder(item.root) {
             fun bind(index: Int, data: door){
-                item.doorItemName.text = data.name
-            }
-            init{
-                itemView.setOnClickListener{
-                    onItemClick?.invoke(doorList[adapterPosition])
+                if (data.motorized) {
+                    item.doorSwitch.text = data.name
+                    item.doorSwitch.isChecked = data.isOpen
+                    item.doorSwitch.visibility = View.VISIBLE
+                    item.doorItemName.visibility = View.GONE
+                    item.doorStatus.visibility = View.GONE
+                }else {
+                    item.doorItemName.text = data.name
+                    if (data.isOpen)
+                        item.doorStatus.text = "Open"
+                    else
+                        item.doorStatus.text = "Closed"
+                    item.doorItemName.visibility = View.VISIBLE
+                    item.doorStatus.visibility = View.VISIBLE
+                    item.doorSwitch.visibility = View.GONE
+                }
+
+                item.doorSwitch.setOnCheckedChangeListener { _, isChecked ->
+                    onToggleDoor?.invoke(data)
                 }
             }
 
