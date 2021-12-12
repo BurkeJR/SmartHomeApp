@@ -58,6 +58,11 @@
             app:argType="integer"
             android:defaultValue="-1"
             />
+        <argument
+            android:name="songID"
+            app:argType="integer"
+            android:defaultValue="0"
+            />
     </fragment>
     <fragment
         android:id="@+id/doorsFragment"
