@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -31,8 +30,6 @@ class DoorsFragment : Fragment() {
 
 
         requestQueue = Volley.newRequestQueue(this.context)
-        //val url = "http://10.37.113.241/media-players" //Luke
-//        val url = "http://10.37.103.116/doors"  //Aaron
         val url = "http://${getString(R.string.myIPAddress)}/doors"
         lateinit var doorList: List<door>
         val stringRequest = StringRequest(
@@ -55,11 +52,6 @@ class DoorsFragment : Fragment() {
                     turnOnRequest.tag = this
                     requestQueue.add(turnOnRequest)
                 }
-
-//                adapter.onItemClick = {
-//                    val action = DoorsFragmentDirections.actionDoorsFragmentToDoorsDetailsFragment()
-//                    findNavController().navigate(action)
-//                }
             },{
                 Log.e("Error", "Request failed")
             }
