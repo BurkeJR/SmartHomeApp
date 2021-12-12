@@ -25,6 +25,7 @@
         android:id="@+id/DoorButton"
         android:layout_width="250dp"
         android:layout_height="100dp"
+        android:layout_marginBottom="32dp"
         android:fontFamily="monospace"
         android:text="@string/door_button_label"
         android:textSize="34sp"
@@ -32,12 +33,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AppTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/AppTitle"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/MediaButton"
         android:layout_width="250dp"
         android:layout_height="100dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="monospace"
         android:text="@string/media_button_label"
         android:textSize="34sp"
