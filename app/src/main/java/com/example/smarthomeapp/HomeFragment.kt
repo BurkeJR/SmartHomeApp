@@ -5,12 +5,19 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.smarthomeapp.databinding.FragmentHomeBinding
+import com.google.gson.Gson
 
 
 class HomeFragment : Fragment() {
@@ -18,6 +25,7 @@ class HomeFragment : Fragment() {
 
     var netCon = false
 
+    private lateinit var requestQueue: RequestQueue
 
 
     override fun onCreateView(
@@ -38,6 +46,108 @@ class HomeFragment : Fragment() {
             }
             binding.MediaButton.setOnClickListener {
                 findNavController().navigate(R.id.action_homeFragment_to_mediaFragment)
+            }
+
+            binding.bedtimeButton.setOnClickListener {
+                requestQueue = Volley.newRequestQueue(this.context)
+                val ipAddress = getString(R.string.myIPAddress)
+                val doorUrl = "http://$ipAddress/doors"
+                val lightsUrl = "http://$ipAddress/lights"
+                val mediaUrl = "http://$ipAddress/media-players"
+
+                lateinit var doorList: List<door>
+                lateinit var openDoorList: List<door>
+                lateinit var lightList: List<light>
+                lateinit var mediaList: List<mediaPlayer>
+
+                val doorRequest = StringRequest(
+                    Request.Method.GET,
+                    doorUrl,
+                    {
+                        val gson = Gson()
+
+                        doorList = gson.fromJson<ArrayResult<door>>(it).result
+
+                        for (door in doorList){
+                            if (door.isOpen){
+                                if (door.motorized) {
+                                    door.isOpen = !door.isOpen
+                                    val turnOffRequest = StringRequestWithBody(
+                                        doorUrl + "?id=${door.id}",
+                                        door,
+                                        {},
+                                        {})
+                                    turnOffRequest.tag = this
+                                    requestQueue.add(turnOffRequest)
+                                }else{
+//                                    TODO: add opened non-motorized doors to openDoorList
+                                }
+                            }
+                        }
+
+                    },{
+                        Log.e("Error", "Request failed")
+                    }
+                )
+
+                val lightRequest = StringRequest(
+                    Request.Method.GET,
+                    lightsUrl,
+                    { thing ->
+                        val gson = Gson()
+
+                        lightList = gson.fromJson<ArrayResult<light>>(thing).result
+
+                        for (light in lightList) {
+                            if (light.isOn) {
+                                light.isOn = !light.isOn
+
+                                val turnOffRequest =
+                                    StringRequestWithBody(lightsUrl + "?id=${light.id}",
+                                        light, {}, {})
+                                turnOffRequest.tag = this
+                                requestQueue.add(turnOffRequest)
+                            }
+                        }
+
+                    }, {
+                        Log.e("Error", "Request failed")
+                    }
+                )
+
+                val mediaRequest = StringRequest(
+                    Request.Method.GET,
+                    mediaUrl,
+                    {
+                        val gson = Gson()
+
+                        mediaList = gson.fromJson<ArrayResult<mediaPlayer>>(it).result
+
+                        for (media in mediaList){
+                            if (media.isPlaying){
+                                media.isPlaying = !media.isPlaying
+
+                                val turnOffRequest =
+                                    StringRequestWithBody(mediaUrl + "/pause?id=${media.id}&songId=${media.nowPlayingSongId}",
+                                        media, {}, {})
+                                turnOffRequest.tag = this
+                                requestQueue.add(turnOffRequest)
+                            }
+                        }
+                    },{
+                        Log.e("Error", "Request failed")
+                    }
+                )
+
+                doorRequest.tag = this
+                lightRequest.tag = this
+                mediaRequest.tag = this
+                requestQueue.add(doorRequest)
+                requestQueue.add(lightRequest)
+                requestQueue.add(mediaRequest)
+
+//                 TODO: create popup window that says garage doors have been close, media and lights turned
+//                 off, and displays any non-motorized doors that are open
             }
         }
         else{
