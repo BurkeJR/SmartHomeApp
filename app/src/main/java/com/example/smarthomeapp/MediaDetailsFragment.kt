@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.media.MediaPlayer
 import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,6 +27,7 @@ import com.google.gson.Gson
 import org.json.JSONException
 import org.json.JSONObject
 import com.squareup.picasso.Picasso
+import kotlin.math.roundToInt
 
 
 class MediaDetailsFragment : Fragment() {
@@ -35,7 +37,10 @@ class MediaDetailsFragment : Fragment() {
     val args: MediaDetailsFragmentArgs by navArgs<MediaDetailsFragmentArgs>()
     var songID = 0
     var numSongs = 1
+    lateinit var bar: Thread
+    private var currentTime = 0.0
     var playing = false
+    private val handler = Handler()
     lateinit var songList: List<song>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +50,7 @@ class MediaDetailsFragment : Fragment() {
         //Set binding
         binding.mediaDetailTitleText.text = args.mediaName
         playing = args.isPlaying
+        currentTime = args.currentTimeSeconds.toDouble()
         songID = args.songID
         if(playing){
             binding.playMediaMusicButton.setImageResource(R.drawable.ic_baseline_pause_24)
@@ -69,6 +75,8 @@ class MediaDetailsFragment : Fragment() {
                 binding.songNameTextView.text = songList[songID].name
                 loadImage(songList[songID].coverUrl)
                 numSongs = songList.size
+                binding.determinateBar.progress = ((currentTime/songList[songID].durationSeconds)*100).roundToInt()
+                startProgressBar(args.currentTimeSeconds.toDouble(), songList[songID].durationSeconds)
 
 
                 Log.i("VOLLEY", "Songs loaded")
@@ -101,18 +109,18 @@ class MediaDetailsFragment : Fragment() {
     }
 
     fun playMusic() {
-
         val turnOnMediaRequest = StringRequestWithBody("http://${getString(R.string.myIPAddress)}/media-players/play?id=${args.mediaID}&sondId=$songID", "", {},{})
 
         turnOnMediaRequest.tag = this
         requestQueue.add(turnOnMediaRequest)
         binding.playMediaMusicButton.setImageResource(R.drawable.ic_baseline_pause_24)
         playing = true
+        startProgressBar(currentTime, songList[songID].durationSeconds)
 
     }
 
     fun pauseMusic(){
-
+        bar.interrupt()
         val turnOnMediaRequest = StringRequestWithBody("http://${getString(R.string.myIPAddress)}/media-players/pause?id=${args.mediaID}&songId=$songID", "", {},{})
 
         turnOnMediaRequest.tag = this
@@ -121,6 +129,8 @@ class MediaDetailsFragment : Fragment() {
         playing = false
     }
     fun nextSong(){
+        bar.interrupt()
+        playing = false
         songID = (songID + 1) % numSongs
         Log.i("MEDIA", "Song: $songID")
         val changeSongRequest = StringRequestWithBody(
@@ -130,7 +140,7 @@ class MediaDetailsFragment : Fragment() {
                 {})
         changeSongRequest.tag = this
         requestQueue.add(changeSongRequest)
-
+        currentTime = 0.0
         if(!playing){
             playMusic()
         }
@@ -161,5 +171,25 @@ class MediaDetailsFragment : Fragment() {
         imgRequest.tag = this
 
         requestQueue.add(imgRequest)
+    }
+    private fun startProgressBar(time: Double, duration: Double){
+        this.currentTime = time
+        bar =Thread(Runnable {
+            var interrupted = false
+            while(binding.determinateBar.progress < 100 && !interrupted && playing){
+                handler.post(Runnable {
+                    binding.determinateBar.progress = ((currentTime/duration) * 100).roundToInt()
+                    Log.i("Debug", "CurrentTime: $currentTime")
+                })
+                try {
+                    currentTime += .1
+                    Thread.sleep(100)
+                }catch (e:InterruptedException){
+                    e.printStackTrace()
+                    interrupted = true
+                }
+            }
+        })
+        bar.start()
     }
 }

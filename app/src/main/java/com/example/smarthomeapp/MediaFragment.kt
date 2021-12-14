@@ -50,7 +50,7 @@ class MediaFragment : Fragment() {
                 binding.recyclerView.layoutManager = LinearLayoutManager(context)
                 adapter.submitList(mediaList)
                 adapter.onItemClick = {
-                    val action = MediaFragmentDirections.actionMediaFragmentToMediaDetailsFragment(it.name, it.isPlaying,it.id, it.nowPlayingSongId)
+                    val action = MediaFragmentDirections.actionMediaFragmentToMediaDetailsFragment(it.name, it.isPlaying,it.id, it.nowPlayingSongId,it.currentTimeSeconds.toFloat())
                     findNavController().navigate(action)
                 }
             },{
