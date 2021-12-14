@@ -73,37 +73,5 @@
         android:id="@+id/doorsFragment"
         android:name="com.example.smarthomeapp.DoorsFragment"
         android:label="fragment_doors"
-        tools:layout="@layout/fragment_doors" >
-        <action
-            android:id="@+id/action_doorsFragment_to_doorsDetailsFragment"
-            app:destination="@id/doorsDetailsFragment"
-            app:popUpTo="@id/doorsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/doorsDetailsFragment"
-        android:name="com.example.smarthomeapp.DoorsDetailsFragment"
-        android:label="fragment_doors_details"
-        tools:layout="@layout/fragment_doors_details" >
-
-<!--        <argument-->
-<!--            android:name="doorName"-->
-<!--            app:argType="string"-->
-<!--            android:defaultValue="null"-->
-<!--            />-->
-<!--        <argument-->
-<!--            android:name="doorID"-->
-<!--            app:argType="integer"-->
-<!--            android:defaultValue="-1"-->
-<!--            />-->
-<!--        <argument-->
-<!--            android:name="isOpen"-->
-<!--            app:argType="boolean"-->
-<!--            android:defaultValue="null"-->
-<!--            />-->
-<!--        <argument-->
-<!--            android:name="isMotorized"-->
-<!--            app:argType="boolean"-->
-<!--            android:defaultValue="null"-->
-<!--            />-->
-    </fragment>
+        tools:layout="@layout/fragment_doors" />
 </navigation>
