@@ -1,6 +1,5 @@
 package com.example.smarthomeapp
 
-
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,19 +14,16 @@ import com.android.volley.toolbox.Volley
 import com.example.smarthomeapp.databinding.FragmentDoorsBinding
 import com.google.gson.Gson
 
-
 class DoorsFragment : Fragment() {
     private lateinit var binding: FragmentDoorsBinding
     private lateinit var adapter: DoorsAdapter
     private lateinit var requestQueue: RequestQueue
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDoorsBinding.inflate(inflater)
-
 
         requestQueue = Volley.newRequestQueue(this.context)
         val url = "http://${getString(R.string.myIPAddress)}/doors"
@@ -62,5 +58,4 @@ class DoorsFragment : Fragment() {
 
         return binding.root
     }
-
 }

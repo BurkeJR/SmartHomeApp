@@ -19,7 +19,6 @@ class LightsFragment : Fragment() {
     private lateinit var adapter: LightsAdapter
     private lateinit var requestQueue: RequestQueue
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,8 +55,8 @@ class LightsFragment : Fragment() {
             }, {
                 Log.e("Error", "Request failed")
             }
-
         )
+
         stringRequest.tag = this
 
         requestQueue.add(stringRequest)
