@@ -19,14 +19,11 @@ import com.android.volley.toolbox.Volley
 import com.example.smarthomeapp.databinding.FragmentHomeBinding
 import com.google.gson.Gson
 
-
 class HomeFragment : Fragment() {
+
     private lateinit var binding: FragmentHomeBinding
-
     var netCon = false
-
     private lateinit var requestQueue: RequestQueue
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +53,6 @@ class HomeFragment : Fragment() {
                 val mediaUrl = "http://$ipAddress/media-players"
 
                 lateinit var doorList: List<door>
-                lateinit var openDoorList: List<door>
                 lateinit var lightList: List<light>
                 lateinit var mediaList: List<mediaPlayer>
 
@@ -73,14 +69,9 @@ class HomeFragment : Fragment() {
                                 if (door.motorized) {
                                     door.isOpen = !door.isOpen
                                     val turnOffRequest = StringRequestWithBody(
-                                        doorUrl + "?id=${door.id}",
-                                        door,
-                                        {},
-                                        {})
+                                        doorUrl + "?id=${door.id}", door, {}, {})
                                     turnOffRequest.tag = this
                                     requestQueue.add(turnOffRequest)
-                                }else{
-//                                    TODO: add opened non-motorized doors to openDoorList
                                 }
                             }
                         }
@@ -102,14 +93,12 @@ class HomeFragment : Fragment() {
                             if (light.isOn) {
                                 light.isOn = !light.isOn
 
-                                val turnOffRequest =
-                                    StringRequestWithBody(lightsUrl + "?id=${light.id}",
-                                        light, {}, {})
+                                val turnOffRequest = StringRequestWithBody(lightsUrl +
+                                        "?id=${light.id}", light, {}, {})
                                 turnOffRequest.tag = this
                                 requestQueue.add(turnOffRequest)
                             }
                         }
-
                     }, {
                         Log.e("Error", "Request failed")
                     }
@@ -127,8 +116,8 @@ class HomeFragment : Fragment() {
                             if (media.isPlaying){
                                 media.isPlaying = !media.isPlaying
 
-                                val turnOffRequest =
-                                    StringRequestWithBody(mediaUrl + "/pause?id=${media.id}&songId=${media.nowPlayingSongId}",
+                                val turnOffRequest = StringRequestWithBody(mediaUrl +
+                                        "/pause?id=${media.id}&songId=${media.nowPlayingSongId}",
                                         media, {}, {})
                                 turnOffRequest.tag = this
                                 requestQueue.add(turnOffRequest)
@@ -145,18 +134,12 @@ class HomeFragment : Fragment() {
                 requestQueue.add(doorRequest)
                 requestQueue.add(lightRequest)
                 requestQueue.add(mediaRequest)
-
-//                 TODO: create popup window that says garage doors have been close, media and lights turned
-//                 off, and displays any non-motorized doors that are open
             }
         }
         else{
             binding.ConnectStatus.text = "Not connected, check internet access to continue"
         }
 
-
-
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -179,5 +162,4 @@ class HomeFragment : Fragment() {
             return false
         }
     }
-
 }

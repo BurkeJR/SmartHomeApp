@@ -45,7 +45,6 @@ class DoorsAdapter (
                     onToggleDoor?.invoke(data)
                 }
             }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -56,7 +55,6 @@ class DoorsAdapter (
 
     override fun onBindViewHolder(holder: DoorsAdapter.ViewHolder, position: Int) {
         holder.bind(position, getItem(position))
-
     }
 
     override fun getItemCount(): Int {

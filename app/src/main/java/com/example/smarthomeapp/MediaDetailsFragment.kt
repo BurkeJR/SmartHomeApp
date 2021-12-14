@@ -2,8 +2,6 @@ package com.example.smarthomeapp
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.media.MediaPlayer
-import android.opengl.Visibility
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -15,20 +13,14 @@ import android.widget.ImageView
 import androidx.navigation.fragment.navArgs
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.Response
 import com.android.volley.toolbox.ImageRequest
-import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.learnsmarthome.StringRequestWithBody
 import com.example.smarthomeapp.databinding.FragmentMediaDetailsBinding
-import com.example.smarthomeapp.databinding.FragmentMediaListBinding
 import com.google.gson.Gson
-import org.json.JSONException
-import org.json.JSONObject
 import com.squareup.picasso.Picasso
 import kotlin.math.roundToInt
-
 
 class MediaDetailsFragment : Fragment() {
     private lateinit var binding: FragmentMediaDetailsBinding
@@ -42,6 +34,7 @@ class MediaDetailsFragment : Fragment() {
     var playing = false
     private val handler = Handler()
     lateinit var songList: List<song>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,12 +49,10 @@ class MediaDetailsFragment : Fragment() {
             binding.playMediaMusicButton.setImageResource(R.drawable.ic_baseline_pause_24)
         }
 
-
         requestQueue = Volley.newRequestQueue(this.context)
 
         val ipAddress = getString(R.string.myIPAddress)
         val url = "http://$ipAddress/media-players/songs"
-
 
         val stringRequest = StringRequest(
             Request.Method.GET,
@@ -71,13 +62,11 @@ class MediaDetailsFragment : Fragment() {
 
                 songList = gson.fromJson<ArrayResult<song>>(it).result
 
-
                 binding.songNameTextView.text = songList[songID].name
                 loadImage(songList[songID].coverUrl)
                 numSongs = songList.size
                 binding.determinateBar.progress = ((currentTime/songList[songID].durationSeconds)*100).roundToInt()
                 startProgressBar(args.currentTimeSeconds.toDouble(), songList[songID].durationSeconds)
-
 
                 Log.i("VOLLEY", "Songs loaded")
             },
@@ -90,8 +79,6 @@ class MediaDetailsFragment : Fragment() {
 
         requestQueue.add(stringRequest)
 
-
-
         binding.playMediaMusicButton.setOnClickListener {
             if(playing){
                 pauseMusic()
@@ -103,7 +90,6 @@ class MediaDetailsFragment : Fragment() {
         binding.nextSongButton.setOnClickListener {
             nextSong()
         }
-
 
         return binding.root
     }
@@ -128,6 +114,7 @@ class MediaDetailsFragment : Fragment() {
         binding.playMediaMusicButton.setImageResource(R.drawable.ic_baseline_play_arrow_24)
         playing = false
     }
+
     fun nextSong(){
         bar.interrupt()
         playing = false
@@ -135,9 +122,7 @@ class MediaDetailsFragment : Fragment() {
         Log.i("MEDIA", "Song: $songID")
         val changeSongRequest = StringRequestWithBody(
                 "http://${getString(R.string.myIPAddress)}/media-players/play?id=${args.mediaID}&songId=$songID&currentTimeSeconds=0",
-                "",
-                {},
-                {})
+                "", {}, {})
         changeSongRequest.tag = this
         requestQueue.add(changeSongRequest)
         currentTime = 0.0
@@ -149,7 +134,6 @@ class MediaDetailsFragment : Fragment() {
 
         binding.songNameTextView.text = songList[songID].name
     }
-
 
     private fun loadImage(url: String) {
         Picasso.get().load(url).into(binding.albumCoverImage)
@@ -172,6 +156,7 @@ class MediaDetailsFragment : Fragment() {
 
         requestQueue.add(imgRequest)
     }
+
     private fun startProgressBar(time: Double, duration: Double){
         this.currentTime = time
         bar =Thread(Runnable {

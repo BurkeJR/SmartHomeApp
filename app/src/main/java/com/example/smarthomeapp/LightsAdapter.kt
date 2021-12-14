@@ -1,15 +1,11 @@
 package com.example.smarthomeapp
 
 
-
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import android.widget.AdapterView.OnItemClickListener
-import androidx.navigation.Navigation
 import com.example.smarthomeapp.databinding.LightItemBinding
 
 class DiffCallback : DiffUtil.ItemCallback<light>() {
@@ -18,7 +14,6 @@ class DiffCallback : DiffUtil.ItemCallback<light>() {
 
     override fun areContentsTheSame(oldItem: light, newItem: light): Boolean = oldItem == newItem
 }
-
 
 
 class LightsAdapter: ListAdapter<light, LightsAdapter.ViewHolder>(DiffCallback()){
@@ -45,6 +40,5 @@ class LightsAdapter: ListAdapter<light, LightsAdapter.ViewHolder>(DiffCallback()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(position, getItem(position))
-
     }
 }

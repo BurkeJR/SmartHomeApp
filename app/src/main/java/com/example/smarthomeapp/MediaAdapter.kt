@@ -1,26 +1,17 @@
 package com.example.smarthomeapp
 
-
-
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import android.widget.AdapterView.OnItemClickListener
-import androidx.navigation.Navigation
 import com.example.smarthomeapp.databinding.MediaListItemBinding
-
 
 class DiffCallbackMedia : DiffUtil.ItemCallback<mediaPlayer>() {
     override fun areItemsTheSame(oldItem: mediaPlayer, newItem: mediaPlayer): Boolean = oldItem == newItem
 
-
     override fun areContentsTheSame(oldItem: mediaPlayer, newItem: mediaPlayer): Boolean = oldItem == newItem
 }
-
-
 
 class MediaAdapter(
     var mediaList: List<mediaPlayer>,
